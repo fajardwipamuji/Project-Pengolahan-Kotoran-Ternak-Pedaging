@@ -3,239 +3,560 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eco-Poultry Virtual Lab</title>
+    <title>Eco-Poultry Virtual Lab - XI AT</title>
+    <!-- Tailwind CSS untuk Styling Cepat dan Modern -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        /* Animasi Transisi Tab */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #16a34a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #15803d; }
+        /* Accordion Style */
+        .accordion-content { display: none; }
+        .accordion-content.open { display: block; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
+<body class="bg-gray-100 text-gray-800 font-sans leading-relaxed tracking-wide">
 
-    <!-- Header -->
-    <header class="bg-green-700 text-white p-4 shadow-md sticky top-0 z-10">
-        <div class="max-w-3xl mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold">Eco-Poultry Virtual Lab</h1>
-            <span class="text-sm bg-green-800 px-2 py-1 rounded">XI AT</span>
+    <!-- Navbar & Header -->
+    <header class="bg-green-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- Icon Leaf -->
+                <svg class="w-8 h-8 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight">Eco-Poultry Virtual Lab</h1>
+                    <p class="text-xs text-green-200">Agribisnis Ternak - SMKN 2 Purbalingga</p>
+                </div>
+            </div>
+            <div class="hidden sm:block">
+                <span class="bg-green-600 px-3 py-1 rounded-full text-sm font-semibold shadow-inner">Kelas XI AT</span>
+            </div>
         </div>
+        
+        <!-- Tab Navigasi -->
+        <nav class="bg-green-700">
+            <div class="max-w-4xl mx-auto flex overflow-x-auto text-sm font-medium">
+                <button onclick="openTab('beranda')" class="tab-btn flex-1 py-3 px-4 text-center border-b-4 border-green-300 text-white whitespace-nowrap hover:bg-green-600 transition-colors">
+                    Beranda
+                </button>
+                <button onclick="openTab('modul1')" class="tab-btn flex-1 py-3 px-4 text-center border-b-4 border-transparent text-green-200 hover:text-white hover:bg-green-600 whitespace-nowrap transition-colors">
+                    Modul 1: Litter
+                </button>
+                <button onclick="openTab('modul2')" class="tab-btn flex-1 py-3 px-4 text-center border-b-4 border-transparent text-green-200 hover:text-white hover:bg-green-600 whitespace-nowrap transition-colors">
+                    Modul 2: Probiotik
+                </button>
+                <button onclick="openTab('jurnal')" class="tab-btn flex-1 py-3 px-4 text-center border-b-4 border-transparent text-green-200 hover:text-white hover:bg-green-600 whitespace-nowrap transition-colors">
+                    Jurnal Praktikum
+                </button>
+            </div>
+        </nav>
     </header>
 
-    <!-- Navigasi -->
-    <nav class="bg-white shadow-sm mb-6">
-        <div class="max-w-3xl mx-auto flex overflow-x-auto">
-            <button onclick="openTab('beranda')" class="tab-btn flex-1 py-3 px-4 font-semibold text-green-700 border-b-2 border-green-700 whitespace-nowrap">Beranda</button>
-            <button onclick="openTab('modul1')" class="tab-btn flex-1 py-3 px-4 font-semibold text-gray-500 hover:text-green-700 whitespace-nowrap">Modul 1</button>
-            <button onclick="openTab('modul2')" class="tab-btn flex-1 py-3 px-4 font-semibold text-gray-500 hover:text-green-700 whitespace-nowrap">Modul 2</button>
-            <button onclick="openTab('jurnal')" class="tab-btn flex-1 py-3 px-4 font-semibold text-gray-500 hover:text-green-700 whitespace-nowrap">Jurnal</button>
-        </div>
-    </nav>
-
     <!-- Kontainer Utama -->
-    <main class="max-w-3xl mx-auto px-4 pb-12">
+    <main class="max-w-4xl mx-auto p-4 my-6">
 
-        <!-- Beranda -->
-        <div id="beranda" class="tab-content active">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-2xl font-bold text-green-800 mb-4">Selamat Datang!</h2>
-                <!-- Gambar dengan ID Google Drive -->
-                <img src="https://drive.google.com/thumbnail?id=1YpLZJlcd3VzBnMn6kg_GeaCHpyAlanMX&sz=w1000" alt="Kandang Closed House" class="w-full h-48 object-cover rounded-md mb-4 bg-gray-200">
-                <p class="mb-4">Aplikasi ini adalah pendamping kegiatan belajar mengajar Agribisnis Ternak. Silakan pelajari materi dan selesaikan tantangan di setiap modul sebelum mengisi jurnal.</p>
-                <ul class="list-disc pl-5 text-gray-700">
-                    <li>Pekan 11: Penanganan Kotoran (Part 1)</li>
-                    <li>Pekan 12: Penanganan Kotoran (Part 2)</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Modul 1 -->
-        <div id="modul1" class="tab-content">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-bold text-green-800 mb-2">Modul 1: Manajemen Litter</h2>
-                <p class="mb-4 text-sm text-gray-600">Simulasi SOP pengerukan litter yang basah dan menggumpal.</p>
+        <!-- ================= BERANDA ================= -->
+        <section id="beranda" class="tab-content active">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <!-- Gambar Hero 1920x1080 (Aspect Video memastikan rasio 16:9) -->
+                <div class="relative w-full aspect-video bg-gray-200">
+                    <img src="https://drive.google.com/thumbnail?id=1YpLZJlcd3VzBnMn6kg_GeaCHpyAlanMX&sz=w1920-h1080" 
+                         alt="Kandang Closed House" 
+                         class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-6">
+                        <h2 class="text-3xl font-bold text-white mb-1">Manajemen Limbah Peternakan</h2>
+                        <p class="text-gray-200 text-sm">Menuju Peternakan Modern yang Bersih, Sehat, dan Menguntungkan.</p>
+                    </div>
+                </div>
                 
-                <div class="space-y-3">
-                    <label class="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-green-600 rounded">
-                        <span class="ml-3">1. Memakai masker dan sarung tangan (APD)</span>
-                    </label>
-                    <label class="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-green-600 rounded">
-                        <span class="ml-3">2. Identifikasi area litter yang basah (bawah nipel minum)</span>
-                    </label>
-                    <label class="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-green-600 rounded">
-                        <span class="ml-3">3. Pengerukan perlahan agar amonia tidak bertebaran</span>
-                    </label>
-                    <label class="flex items-center p-3 border rounded-md cursor-pointer hover:bg-gray-50">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-green-600 rounded">
-                        <span class="ml-3">4. Taburkan sekam baru yang kering</span>
-                    </label>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold text-green-800 border-l-4 border-green-600 pl-3 mb-4">Pengantar Pembelajaran</h3>
+                    <p class="text-gray-700 mb-6 text-justify">
+                        Selamat datang murid-murid XI AT. Pada pembelajaran Pekan 11 dan 12 ini, kita akan mendalami tata kelola limbah organik di peternakan ayam unggas. Kotoran ayam dan litter yang tidak dikelola dengan baik bukan sekadar masalah estetika, melainkan ancaman langsung terhadap kesehatan pernapasan ternak (khususnya bahaya gas amonia) dan kenyamanan lingkungan sekitar.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-5 rounded-lg border border-blue-100">
+                            <h4 class="font-bold text-blue-800 mb-2 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                                Tujuan Kompetensi
+                            </h4>
+                            <ul class="list-disc pl-5 text-sm text-blue-900 space-y-1">
+                                <li>Menganalisis dampak gas amonia terhadap saluran pernapasan unggas.</li>
+                                <li>Menerapkan Standar Operasional Prosedur (SOP) pengerukan litter basah (caking).</li>
+                                <li>Menghitung dosis probiotik (EM4) dan molase dengan presisi.</li>
+                                <li>Melakukan proses bio-konversi limbah menggunakan teknik fermentasi anaerob.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 p-5 rounded-lg border border-amber-100">
+                            <h4 class="font-bold text-amber-800 mb-2 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Alur Kegiatan
+                            </h4>
+                            <ol class="list-decimal pl-5 text-sm text-amber-900 space-y-1">
+                                <li>Pelajari secara mandiri Teori Modul 1 dan Modul 2.</li>
+                                <li>Selesaikan simulasi interaktif Kalkulator Dosis Probiotik.</li>
+                                <li>Lakukan praktikum di kandang sesuai instruksi guru.</li>
+                                <li>Dokumentasikan hasil kerja (Foto).</li>
+                                <li>Kirim laporan melalui tab <b>Jurnal Praktikum</b>.</li>
+                            </ol>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Modul 2 -->
-        <div id="modul2" class="tab-content">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-bold text-green-800 mb-2">Modul 2: Kalkulator Probiotik</h2>
-                <p class="mb-4 text-sm text-gray-600">Hitung kebutuhan EM4 untuk fermentasi dekomposisi kotoran ayam.</p>
+        <!-- ================= MODUL 1: MANAJEMEN LITTER ================= -->
+        <section id="modul1" class="tab-content">
+            <div class="bg-white rounded-xl shadow-md p-8 mb-6">
+                <h2 class="text-2xl font-bold text-green-800 mb-6 border-b pb-2">Modul 1: Penanganan Kotoran & Manajemen Litter</h2>
                 
-                <div class="bg-green-50 p-4 rounded-md border border-green-200 mb-4">
-                    <p class="font-semibold text-green-800">Soal Simulasi:</p>
-                    <p>Dosis standar: 10 ml EM4 per 1 liter air.</p>
-                    <p class="mt-2">Jika Anda memiliki <span id="soal-volume" class="font-bold text-lg text-blue-600">5</span> liter air, berapa ml EM4 yang dibutuhkan?</p>
-                </div>
+                <!-- Teori Mendalam -->
+                <article class="prose max-w-none text-gray-700 mb-8 text-justify">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">1. Apa Itu Litter dan Mengapa Penting?</h3>
+                    <p class="mb-4">
+                        Litter adalah hamparan alas kandang yang terbuat dari bahan organik (seperti sekam padi, serutan kayu, atau jerami potong) yang berfungsi untuk menyerap kelembapan feses ayam, memberikan kehangatan, serta melindungi dada dan kaki unggas dari gesekan lantai keras. Litter yang ideal harus memiliki tingkat kelembapan sekitar 20-25%. Jika terlalu kering akan menimbulkan debu yang memicu penyakit pernapasan, dan jika terlalu basah akan memicu penumpukan amonia.
+                    </p>
 
-                <div class="flex gap-2 mb-4">
-                    <input type="number" id="jawaban-murid" placeholder="Masukkan jawaban..." class="border p-2 rounded w-full focus:ring-2 focus:ring-green-500">
-                    <button onclick="cekJawaban()" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Cek</button>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 mt-6">2. Bahaya Tersembunyi: Gas Amonia (NH3)</h3>
+                    <p class="mb-4">
+                        Kotoran ayam mengandung kadar nitrogen (asam urat) yang tinggi. Ketika litter basah dan bercampur dengan feses, bakteri pengurai akan memecah nitrogen tersebut menjadi gas amonia (NH3). Gas ini memiliki aroma menyengat yang sangat tajam.
+                    </p>
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 rounded">
+                        <p class="font-semibold text-red-800 mb-1">Dampak Kritis Amonia pada Ayam:</p>
+                        <ul class="list-disc pl-5 text-sm text-red-900">
+                            <li><strong>Kerusakan Trachea:</strong> Amonia membakar dan merusak silia (rambut getar halus) pada saluran pernapasan ayam. Tanpa silia, debu dan bakteri e.coli mudah masuk ke paru-paru.</li>
+                            <li><strong>Pemicu CRD (Chronic Respiratory Disease):</strong> Ayam akan terdengar "ngorok", mata berair, dan nafsu makan turun drastis.</li>
+                            <li><strong>Kerugian Ekonomi:</strong> Penurunan bobot badan (FCR bengkak) dan meningkatnya angka kematian (deplesi).</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 mt-6">3. Fenomena Litter Menggumpal (Caking)</h3>
+                    <p class="mb-4">
+                        *Caking* adalah kondisi dimana permukaan litter mengeras, basah, dan menggumpal seperti kerak. Hal ini menghambat fungsi serap litter. Penyebab utamanya meliputi: kebocoran instalasi nipel minum, ventilasi udara kandang yang buruk, cuaca ekstrem, atau pakan dengan kadar garam/protein yang terlalu tinggi sehingga kotoran ayam menjadi diare/cair.
+                    </p>
+                </article>
+
+                <!-- Simulasi Interaktif SOP -->
+                <div class="bg-gray-50 p-6 rounded-xl border">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                        Simulasi SOP Praktikum Pengerukan Litter
+                    </h3>
+                    <p class="text-sm text-gray-600 mb-4">Centang setiap tahapan operasional di bawah ini sebagai komitmen pemahaman prosedur kerja lapangan sebelum praktikum dimulai.</p>
+                    
+                    <div class="space-y-3" id="sop-container">
+                        <label class="flex items-start p-4 border bg-white rounded-lg cursor-pointer hover:bg-green-50 transition-colors shadow-sm">
+                            <input type="checkbox" class="form-checkbox mt-1 h-5 w-5 text-green-600 rounded cursor-pointer" onclick="updateProgress()">
+                            <div class="ml-3">
+                                <span class="font-bold block text-gray-800">1. Persiapan K3 (Keselamatan & Kesehatan Kerja)</span>
+                                <span class="text-sm text-gray-500">Memakai masker respirator untuk menghindari gas amonia dan debu, serta mengenakan sarung tangan karet.</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start p-4 border bg-white rounded-lg cursor-pointer hover:bg-green-50 transition-colors shadow-sm">
+                            <input type="checkbox" class="form-checkbox mt-1 h-5 w-5 text-green-600 rounded cursor-pointer" onclick="updateProgress()">
+                            <div class="ml-3">
+                                <span class="font-bold block text-gray-800">2. Identifikasi Area Kritis</span>
+                                <span class="text-sm text-gray-500">Mengecek bagian bawah jalur nipel minum atau area di dekat tirai blower yang biasanya paling rentan basah.</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start p-4 border bg-white rounded-lg cursor-pointer hover:bg-green-50 transition-colors shadow-sm">
+                            <input type="checkbox" class="form-checkbox mt-1 h-5 w-5 text-green-600 rounded cursor-pointer" onclick="updateProgress()">
+                            <div class="ml-3">
+                                <span class="font-bold block text-gray-800">3. Pengerukan Litter Secara Hati-hati</span>
+                                <span class="text-sm text-gray-500">Mengeruk bagian yang basah menggunakan sekop plastik/kayu secara perlahan agar debu dan spora jamur tidak bertebaran ke atas mengenai ayam. Limbah dimasukkan ke karung.</span>
+                            </div>
+                        </label>
+                        <label class="flex items-start p-4 border bg-white rounded-lg cursor-pointer hover:bg-green-50 transition-colors shadow-sm">
+                            <input type="checkbox" class="form-checkbox mt-1 h-5 w-5 text-green-600 rounded cursor-pointer" onclick="updateProgress()">
+                            <div class="ml-3">
+                                <span class="font-bold block text-gray-800">4. Penaburan Sekam Baru</span>
+                                <span class="text-sm text-gray-500">Menaburkan sekam padi yang baru, bersih, dan kering ke area yang sudah dikeruk. Ratakan hingga ketebalan merata dengan area sekitarnya.</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="mt-6">
+                        <div class="flex justify-between text-xs font-semibold text-gray-600 mb-1">
+                            <span>Status Pemahaman Prosedur:</span>
+                            <span id="progress-text">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div id="progress-bar" class="bg-green-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
                 </div>
-                <p id="feedback-jawaban" class="font-bold"></p>
-                <button onclick="acakSoal()" class="mt-4 text-sm text-blue-600 underline">Acak Soal Baru</button>
             </div>
-        </div>
+        </section>
 
-        <!-- Jurnal -->
-        <div id="jurnal" class="tab-content">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-bold text-green-800 mb-4">Jurnal Praktikum</h2>
+        <!-- ================= MODUL 2: PROBIOTIK & BIOKONVERSI ================= -->
+        <section id="modul2" class="tab-content">
+            <div class="bg-white rounded-xl shadow-md p-8 mb-6">
+                <h2 class="text-2xl font-bold text-green-800 mb-6 border-b pb-2">Modul 2: Teknologi Dekomposisi & Bio-Konversi</h2>
                 
-                <div id="status-koneksi" class="mb-4 p-3 bg-blue-50 text-blue-700 rounded text-sm">
-                    Memuat data murid dari Spreadsheet...
+                <article class="prose max-w-none text-gray-700 mb-8 text-justify">
+                    <p class="mb-4">
+                        Kotoran unggas yang basah dan bau tidak selamanya menjadi masalah jika kita menerapkan ilmu bioteknologi. Limbah ini dapat disulap menjadi <i>emas hitam</i> (pupuk kompos organik) atau menjadi media budidaya protein tinggi (Maggot BSF). Kuncinya ada pada **Fermentasi Dekomposisi**.
+                    </p>
+
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 mt-4">Peran Probiotik EM4 (Effective Microorganisms 4)</h3>
+                    <p class="mb-4">
+                        EM4 Peternakan (biasanya botol berwarna cokelat) berisi koloni bakteri menguntungkan seperti <i>Lactobacillus sp.</i>, bakteri fotosintetik, dan ragi (yeast). Ketika disemprotkan ke kotoran ayam, bakteri ini akan:
+                    </p>
+                    <ul class="list-disc pl-5 mb-4 text-sm text-gray-700">
+                        <li>Memakan senyawa organik penyebab bau amonia dan H2S.</li>
+                        <li>Menekan pertumbuhan bakteri patogen (penyakit) seperti E.coli dan Salmonella.</li>
+                        <li>Mempercepat hancurnya bahan organik, menurunkan suhu kotoran, dan memperkaya nutrisi kompos.</li>
+                    </ul>
+
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 mt-4">Mengapa Butuh Molase (Tetes Tebu)?</h3>
+                    <p class="mb-4">
+                        Bakteri di dalam botol EM4 sedang dalam kondisi "tertidur" (dorman). Agar mereka aktif dan berkembang biak sebelum disemprotkan, mereka butuh makanan berupa glukosa/gula. Molase atau tetes tebu adalah sumber energi termurah dan terbaik untuk membangunkan bakteri ini (proses aktivasi/kultivasi).
+                    </p>
+
+                    <!-- Accordion untuk Info BSF -->
+                    <div class="bg-yellow-50 rounded border border-yellow-200 mt-6 mb-2">
+                        <button onclick="toggleAccordion('bsf-info')" class="w-full text-left px-5 py-4 font-bold text-yellow-900 flex justify-between items-center focus:outline-none">
+                            <span>Hilirisasi: Bio-Konversi Maggot BSF (Black Soldier Fly)</span>
+                            <svg class="w-5 h-5 transition-transform duration-300" id="icon-bsf-info" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div id="bsf-info" class="accordion-content px-5 pb-4 text-sm text-yellow-800">
+                            <p class="mt-2 text-justify">
+                                Kotoran ayam yang sudah difermentasi (dihilangkan amonianya) merupakan media kultur yang sangat digemari oleh larva lalat tentara hitam (Maggot BSF). Maggot ini akan mengurai sisa nutrisi dari feses unggas dengan sangat cepat. Hasil akhirnya: maggot gemuk (mengandung hingga 40% protein) dapat dipanen untuk dijadikan pakan alternatif bagi unggas atau ikan, menekan biaya pakan pabrik secara drastis!
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Ice Breaking Interaktif (Kalkulator) -->
+                <div class="bg-gradient-to-br from-green-700 to-green-900 p-6 rounded-xl shadow-inner text-white">
+                    <h3 class="text-xl font-bold mb-2 flex items-center gap-2">
+                        <svg class="w-6 h-6 text-yellow-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Ice Breaking: Takar Probiotik Anda!
+                    </h3>
+                    <p class="text-sm text-green-100 mb-6">Sebagai petugas kandang, murid kelas XI AT harus cepat menghitung dosis campuran di lapangan. Jangan sampai bakteri kekurangan cairan atau kelebihan dosis.</p>
+                    
+                    <div class="bg-white/10 p-5 rounded-lg backdrop-blur-sm border border-white/20 mb-5 text-center">
+                        <p class="text-lg mb-1">Dosis Standar: <span class="font-bold text-yellow-300">10 ml EM4</span> untuk setiap <span class="font-bold text-yellow-300">1 Liter Air</span>.</p>
+                        <div class="text-3xl font-bold mt-4 mb-2">
+                            Jika Anda menyiapkan <span id="soal-volume" class="text-yellow-400 bg-black/30 px-3 py-1 rounded">5</span> Liter Air
+                        </div>
+                        <p class="text-sm">Berapa mililiter (ml) probiotik yang harus dituang?</p>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <input type="number" id="jawaban-murid" placeholder="Masukkan angka (contoh: 50)" class="w-full text-gray-900 border-0 p-4 rounded-lg text-lg font-bold shadow-inner focus:ring-4 focus:ring-green-400 outline-none">
+                            <span class="absolute right-4 top-4 text-gray-500 font-bold">ml</span>
+                        </div>
+                        <button onclick="cekJawaban()" class="bg-yellow-400 text-green-900 font-bold px-8 py-4 rounded-lg hover:bg-yellow-300 active:scale-95 transition-all shadow-lg flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Kunci Jawaban
+                        </button>
+                    </div>
+
+                    <!-- Notifikasi Jawaban -->
+                    <div id="feedback-container" class="hidden mt-4 p-4 rounded-lg flex items-start gap-3 border">
+                        <div id="feedback-icon" class="mt-0.5"></div>
+                        <div>
+                            <h4 id="feedback-title" class="font-bold"></h4>
+                            <p id="feedback-text" class="text-sm"></p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 text-center">
+                        <button onclick="acakSoal()" class="text-sm text-green-200 hover:text-white underline hover:no-underline transition-all">
+                            🔄 Acak Angka Simulasi Baru
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= JURNAL PRAKTIKUM ================= -->
+        <section id="jurnal" class="tab-content">
+            <div class="bg-white rounded-xl shadow-md p-8 mb-6">
+                <div class="flex items-center justify-between border-b pb-4 mb-6">
+                    <h2 class="text-2xl font-bold text-green-800 flex items-center gap-2">
+                        <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        Laporan Jurnal Praktikum
+                    </h2>
+                </div>
+                
+                <p class="text-gray-600 mb-6 text-sm">Formulir ini terhubung secara *real-time* ke database Spreadsheet guru. Pastikan jaringan internet stabil saat mengunggah foto dokumentasi kegiatan dari kandang.</p>
+                
+                <!-- Status Koneksi Database -->
+                <div id="status-koneksi" class="mb-6 p-4 bg-blue-50 border border-blue-200 text-blue-800 rounded-lg text-sm flex items-center gap-3">
+                    <svg class="animate-spin w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    Menyinkronkan data murid dari Google Sheets...
                 </div>
 
-                <form id="form-jurnal" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Kelas</label>
-                        <select id="pilih-kelas" onchange="filterNama()" class="w-full border p-2 rounded bg-gray-100" disabled>
-                            <option value="">-- Pilih Kelas --</option>
-                        </select>
+                <!-- Form Upload -->
+                <form id="form-jurnal" class="space-y-5">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Pilih Kelas</label>
+                            <select id="pilih-kelas" onchange="filterNama()" class="w-full border border-gray-300 p-3 rounded-lg bg-gray-100 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none cursor-not-allowed transition-all" disabled>
+                                <option value="">-- Menunggu Data --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Nama Murid Lengkap</label>
+                            <select id="pilih-nama" class="w-full border border-gray-300 p-3 rounded-lg bg-gray-100 focus:bg-white focus:ring-2 focus:ring-green-500 outline-none cursor-not-allowed transition-all" disabled>
+                                <option value="">-- Pilih Kelas Terlebih Dahulu --</option>
+                            </select>
+                        </div>
                     </div>
+                    
                     <div>
-                        <label class="block text-sm font-medium mb-1">Nama Murid</label>
-                        <select id="pilih-nama" class="w-full border p-2 rounded bg-gray-100" disabled>
-                            <option value="">-- Pilih Nama --</option>
-                        </select>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Deskripsi Kegiatan & Hasil Pengamatan</label>
+                        <textarea id="kegiatan" rows="4" class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-500 outline-none transition-all" placeholder="Jelaskan secara singkat. Contoh: Telah melakukan pengerukan litter basah di area bawah nipel minum blok A, kemudian mencampur kotoran dengan 500ml probiotik teraktivasi..."></textarea>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Kegiatan Praktikum</label>
-                        <textarea id="kegiatan" rows="3" class="w-full border p-2 rounded" placeholder="Contoh: Telah melakukan pengerukan litter basah..."></textarea>
+                    
+                    <div class="bg-gray-50 border-2 border-dashed border-gray-300 p-6 rounded-lg text-center hover:bg-gray-100 transition-colors relative">
+                        <input type="file" id="foto-jurnal" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" onchange="previewFileName()">
+                        <div class="text-gray-500" id="upload-ui">
+                            <svg class="w-10 h-10 mx-auto mb-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <p class="font-bold text-sm">Klik atau Tap di sini untuk melampirkan Foto Bukti Praktikum</p>
+                            <p class="text-xs mt-1">Format didukung: JPG, PNG (Maks 5MB)</p>
+                        </div>
+                        <div id="file-name-display" class="hidden text-green-700 font-bold mt-2"></div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Upload Foto Bukti</label>
-                        <input type="file" id="foto-jurnal" accept="image/*" class="w-full border p-2 rounded bg-white">
-                        <p class="text-xs text-gray-500 mt-1">Pastikan ukuran foto tidak terlalu besar.</p>
-                    </div>
-                    <button type="button" id="btn-submit" onclick="kirimJurnal()" class="w-full bg-green-700 text-white py-2 rounded-md font-bold hover:bg-green-800">Kirim Jurnal</button>
+                    
+                    <button type="button" id="btn-submit" onclick="kirimJurnal()" class="w-full bg-green-700 text-white text-lg py-4 rounded-lg font-bold hover:bg-green-800 active:scale-95 transition-all shadow-md flex justify-center items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        Kirim Laporan Jurnal
+                    </button>
                 </form>
             </div>
-        </div>
+        </section>
 
     </main>
+    
+    <footer class="text-center text-gray-500 text-sm pb-8">
+        &copy; 2026 Eco-Poultry Virtual Lab - Oleh Bapak Fajar, S.Pt.
+    </footer>
 
+    <!-- ================= LOGIKA JAVASCRIPT ================= -->
     <script>
-        // Logika Perpindahan Tab
+        /* --- 1. Navigasi Tab System --- */
         function openTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('text-green-700', 'border-b-2', 'border-green-700');
-                btn.classList.add('text-gray-500');
+            // Sembunyikan semua konten tab
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
             });
+            // Reset styling tombol nav
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-green-300', 'text-white');
+                btn.classList.add('border-transparent', 'text-green-200');
+            });
+            // Tampilkan tab target
             document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.remove('text-gray-500');
-            event.currentTarget.classList.add('text-green-700', 'border-b-2', 'border-green-700');
+            // Update styling tombol yang diklik
+            event.currentTarget.classList.remove('border-transparent', 'text-green-200');
+            event.currentTarget.classList.add('border-green-300', 'text-white');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Logika Kalkulator Probiotik
-        let volumeAir = 5;
-        function acakSoal() {
-            volumeAir = Math.floor(Math.random() * 10) + 2;
-            document.getElementById('soal-volume').innerText = volumeAir;
-            document.getElementById('jawaban-murid').value = '';
-            document.getElementById('feedback-jawaban').innerText = '';
-        }
-        function cekJawaban() {
-            const jawaban = parseInt(document.getElementById('jawaban-murid').value);
-            const kunci = volumeAir * 10;
-            const feedback = document.getElementById('feedback-jawaban');
-            if (jawaban === kunci) {
-                feedback.innerText = "✅ Tepat sekali! Takaran sudah benar.";
-                feedback.className = "font-bold text-green-600 mt-2";
+        /* --- 2. Interaksi Accordion UI --- */
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            if(content.classList.contains('open')) {
+                content.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
             } else {
-                feedback.innerText = "❌ Kurang tepat. Coba hitung lagi.";
-                feedback.className = "font-bold text-red-600 mt-2";
+                content.classList.add('open');
+                icon.style.transform = 'rotate(180deg)';
             }
         }
 
-        // Tautan API Bapak Fajar (Pastikan URL ini hasil Deployment Baru jika Apps Script diupdate)
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpAe98lkuH-aYGG0_i00YK1j86isWXzT5K6Io1IXTtluFlGsSyoL8i8KjxZQfMQfkF/exec';
-        let dataMuridGlobal = [];
-
-        // Memuat Data Murid
-        fetch(SCRIPT_URL)
-            .then(response => response.json())
-            .then(data => {
-                if(data.error) {
-                    document.getElementById('status-koneksi').innerHTML = "❌ Error: " + data.error;
-                    return;
-                }
-                dataMuridGlobal = data;
-                document.getElementById('status-koneksi').innerHTML = "✅ Terhubung ke database.";
-                document.getElementById('status-koneksi').className = "mb-4 p-3 bg-green-50 text-green-700 rounded text-sm";
-                
-                const kelasUnik = [...new Set(data.map(item => item.kelas))];
-                const selectKelas = document.getElementById('pilih-kelas');
-                
-                kelasUnik.forEach(kelas => {
-                    let opt = document.createElement('option');
-                    opt.value = kelas;
-                    opt.innerHTML = kelas;
-                    selectKelas.appendChild(opt);
-                });
-                
-                selectKelas.disabled = false;
-                selectKelas.classList.remove('bg-gray-100');
-            })
-            .catch(error => {
-                document.getElementById('status-koneksi').innerHTML = "❌ Gagal terhubung ke Spreadsheet.";
-                document.getElementById('status-koneksi').className = "mb-4 p-3 bg-red-50 text-red-700 rounded text-sm";
-            });
-
-        function filterNama() {
-            const kelasDipilih = document.getElementById('pilih-kelas').value;
-            const selectNama = document.getElementById('pilih-nama');
-            selectNama.innerHTML = '<option value="">-- Pilih Nama --</option>';
+        /* --- 3. Progress Bar SOP Checklist --- */
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('#sop-container input[type="checkbox"]');
+            let checkedCount = 0;
+            checkboxes.forEach(chk => { if(chk.checked) checkedCount++; });
             
-            if(kelasDipilih) {
-                const muridTersaring = dataMuridGlobal.filter(item => item.kelas === kelasDipilih);
-                muridTersaring.forEach(murid => {
+            const total = checkboxes.length;
+            const percentage = Math.round((checkedCount / total) * 100);
+            
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').innerText = percentage + '%';
+            
+            if(percentage === 100) {
+                document.getElementById('progress-bar').classList.add('bg-blue-500');
+                document.getElementById('progress-bar').classList.remove('bg-green-600');
+            } else {
+                document.getElementById('progress-bar').classList.remove('bg-blue-500');
+                document.getElementById('progress-bar').classList.add('bg-green-600');
+            }
+        }
+
+        /* --- 4. Logic Kalkulator Probiotik Interaktif --- */
+        let volumeAirSekarang = 5;
+        
+        function acakSoal() {
+            // Menghasilkan angka acak antara 2 hingga 25 liter
+            volumeAirSekarang = Math.floor(Math.random() * 24) + 2; 
+            document.getElementById('soal-volume').innerText = volumeAirSekarang;
+            document.getElementById('jawaban-murid').value = '';
+            
+            // Sembunyikan notifikasi
+            const container = document.getElementById('feedback-container');
+            container.classList.add('hidden');
+            container.classList.remove('bg-green-500/20', 'border-green-500', 'bg-red-500/20', 'border-red-500');
+        }
+
+        function cekJawaban() {
+            const inputVal = document.getElementById('jawaban-murid').value;
+            if(!inputVal) { alert("Masukkan angka jawaban terlebih dahulu!"); return; }
+            
+            const jawaban = parseInt(inputVal);
+            const kunci = volumeAirSekarang * 10;
+            
+            const container = document.getElementById('feedback-container');
+            const icon = document.getElementById('feedback-icon');
+            const title = document.getElementById('feedback-title');
+            const text = document.getElementById('feedback-text');
+            
+            container.classList.remove('hidden', 'bg-green-500/20', 'border-green-500', 'bg-red-500/20', 'border-red-500');
+            
+            if (jawaban === kunci) {
+                container.classList.add('bg-green-500/20', 'border-green-500');
+                icon.innerHTML = '<svg class="w-6 h-6 text-green-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                title.innerText = "Tepat Sekali!";
+                title.className = "font-bold text-green-100";
+                text.innerText = `Untuk ${volumeAirSekarang} liter air, dikali 10 ml = ${kunci} ml probiotik. Campuran siap digunakan.`;
+                text.className = "text-sm text-green-50";
+            } else {
+                container.classList.add('bg-red-500/20', 'border-red-500');
+                icon.innerHTML = '<svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+                title.innerText = "Kurang Tepat, Coba Lagi!";
+                title.className = "font-bold text-red-200";
+                text.innerText = `Ingat rumusnya: Volume Air dikalikan 10. Jika Anda menaruh ${jawaban} ml, proses fermentasi bisa gagal atau boros bahan.`;
+                text.className = "text-sm text-red-100";
+            }
+        }
+
+        /* --- 5. UI Handler untuk File Upload --- */
+        function previewFileName() {
+            const input = document.getElementById('foto-jurnal');
+            const display = document.getElementById('file-name-display');
+            if(input.files.length > 0) {
+                display.innerText = "📸 File terpilih: " + input.files[0].name;
+                display.classList.remove('hidden');
+            } else {
+                display.classList.add('hidden');
+            }
+        }
+
+        /* --- 6. Sistem Database Terintegrasi (Google Apps Script) --- */
+        // Tautan API Bapak Fajar yang diperbarui
+        const APP_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzpAe98lkuH-aYGG0_i00YK1j86isWXzT5K6Io1IXTtluFlGsSyoL8i8KjxZQfMQfkF/exec';
+        let dataMuridLengkap = [];
+
+        // Mengambil data (GET) saat aplikasi dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch(APP_SCRIPT_URL)
+                .then(response => response.json())
+                .then(data => {
+                    const statusEl = document.getElementById('status-koneksi');
+                    if(data.error) {
+                        statusEl.innerHTML = "❌ Error: " + data.error;
+                        statusEl.className = "mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm";
+                        return;
+                    }
+                    
+                    dataMuridLengkap = data;
+                    
+                    // Update UI Sukses
+                    statusEl.innerHTML = '<svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Terhubung dengan Database Siswa SMKN 2 Purbalingga';
+                    statusEl.className = "mb-6 p-4 bg-green-50 border border-green-200 text-green-800 rounded-lg text-sm flex items-center gap-3";
+                    
+                    // Ekstraksi Kelas Unik & Masukkan ke Dropdown
+                    const listKelas = [...new Set(data.map(item => item.kelas))];
+                    const selectKelas = document.getElementById('pilih-kelas');
+                    selectKelas.innerHTML = '<option value="">-- Pilih Kelas --</option>'; // Reset
+                    
+                    listKelas.forEach(kls => {
+                        let opt = document.createElement('option');
+                        opt.value = kls; opt.innerHTML = kls;
+                        selectKelas.appendChild(opt);
+                    });
+                    
+                    // Aktifkan Form Kelas
+                    selectKelas.disabled = false;
+                    selectKelas.classList.remove('bg-gray-100', 'cursor-not-allowed');
+                })
+                .catch(err => {
+                    const statusEl = document.getElementById('status-koneksi');
+                    statusEl.innerHTML = "❌ Koneksi Gagal. Periksa internet atau Link Apps Script.";
+                    statusEl.className = "mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-lg text-sm";
+                });
+        });
+
+        // Filter Dropdown Nama berdasarkan Kelas
+        function filterNama() {
+            const kelasTerpilih = document.getElementById('pilih-kelas').value;
+            const selectNama = document.getElementById('pilih-nama');
+            
+            selectNama.innerHTML = '<option value="">-- Pilih Nama Murid --</option>';
+            
+            if(kelasTerpilih) {
+                const filterSiswa = dataMuridLengkap.filter(item => item.kelas === kelasTerpilih);
+                filterSiswa.forEach(murid => {
                     let opt = document.createElement('option');
-                    opt.value = murid.nama;
-                    opt.innerHTML = murid.nama;
+                    opt.value = murid.nama; opt.innerHTML = murid.nama;
                     selectNama.appendChild(opt);
                 });
                 selectNama.disabled = false;
-                selectNama.classList.remove('bg-gray-100');
+                selectNama.classList.remove('bg-gray-100', 'cursor-not-allowed');
             } else {
                 selectNama.disabled = true;
-                selectNama.classList.add('bg-gray-100');
+                selectNama.classList.add('bg-gray-100', 'cursor-not-allowed');
             }
         }
 
-        // Logika Pengiriman Jurnal & Foto
+        // Proses Submit Data (POST) + Foto (Base64)
         function kirimJurnal() {
             const kelas = document.getElementById('pilih-kelas').value;
             const nama = document.getElementById('pilih-nama').value;
             const kegiatan = document.getElementById('kegiatan').value;
             const fileInput = document.getElementById('foto-jurnal');
             
-            if(!kelas || !nama || !kegiatan || fileInput.files.length === 0) {
-                alert("Mohon lengkapi data kelas, nama murid, kegiatan, dan unggah foto!");
-                return;
+            // Validasi Input
+            if(!kelas || !nama || !kegiatan) {
+                alert("Mohon lengkapi data Kelas, Nama, dan Deskripsi Kegiatan!"); return;
+            }
+            if(fileInput.files.length === 0) {
+                alert("Anda wajib melampirkan Foto Bukti Praktikum!"); return;
+            }
+            if(fileInput.files[0].size > 5 * 1024 * 1024) { // Max 5MB
+                alert("Ukuran foto terlalu besar. Maksimal 5MB."); return;
             }
 
+            // UI Loading State
             const btn = document.getElementById('btn-submit');
-            btn.innerText = "Mengunggah Foto & Mengirim Data...";
+            const originalBtnText = btn.innerHTML;
+            btn.innerHTML = '<svg class="animate-spin w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Sedang Mengunggah...';
             btn.disabled = true;
             btn.classList.replace('bg-green-700', 'bg-gray-500');
 
@@ -243,37 +564,45 @@
             const reader = new FileReader();
             
             reader.onload = function(e) {
-                const payload = {
+                // Menyiapkan Payload Data (Teks & Gambar Base64)
+                const payloadObj = {
                     kelas: kelas,
                     nama: nama,
                     kegiatan: kegiatan,
                     fileName: file.name,
-                    fileData: e.target.result
+                    fileData: e.target.result // Ini adalah string base64
                 };
 
-                fetch(SCRIPT_URL, {
+                fetch(APP_SCRIPT_URL, {
                     method: 'POST',
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payloadObj)
                 })
                 .then(response => response.json())
                 .then(data => {
                     if(data.status === 'success') {
-                        alert('Jurnal berhasil terkirim ke Spreadsheet!');
-                        document.getElementById('kegiatan').value = '';
-                        fileInput.value = '';
+                        alert('🎉 Luar Biasa! Jurnal berhasil terkirim ke Bapak Fajar.');
+                        // Reset Form
+                        document.getElementById('form-jurnal').reset();
+                        document.getElementById('pilih-nama').innerHTML = '<option value="">-- Pilih Nama Murid --</option>';
+                        document.getElementById('pilih-nama').disabled = true;
+                        document.getElementById('pilih-nama').classList.add('bg-gray-100', 'cursor-not-allowed');
+                        document.getElementById('file-name-display').classList.add('hidden');
                     } else {
-                        alert('Gagal mengirim: ' + data.message);
+                        alert('Terjadi kesalahan pada server: ' + data.message);
                     }
                 })
                 .catch(error => {
-                    alert('Terjadi kesalahan koneksi saat mengirim data.');
+                    alert('Gagal mengirim data. Pastikan koneksi internet lancar dan URL Apps Script sudah di-deploy dengan benar.');
                 })
                 .finally(() => {
-                    btn.innerText = "Kirim Jurnal";
+                    // Reset Button UI
+                    btn.innerHTML = originalBtnText;
                     btn.disabled = false;
                     btn.classList.replace('bg-gray-500', 'bg-green-700');
                 });
             };
+            
+            // Trigger pembacaan file
             reader.readAsDataURL(file);
         }
     </script>
