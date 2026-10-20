@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Poultry Virtual Lab | SMK Agribisnis Ternak</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <nav class="bg-brand-700 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                    <i class="fa-solid fa-leaf text-2xl text-brand-100"></i>
+                    <span class="font-bold text-xl tracking-tight">Eco-Poultry Lab</span>
+                </div>
+                <div class="hidden md:flex space-x-1">
+                    <button onclick="switchTab('home')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:bg-brand-600 transition" data-target="home">Beranda</button>
+                    <button onclick="switchTab('modul1')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:bg-brand-600 transition" data-target="modul1">Modul 1: Litter</button>
+                    <button onclick="switchTab('modul2')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:bg-brand-600 transition" data-target="modul2">Modul 2: Fermentasi</button>
+                    <button onclick="switchTab('jurnal')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium bg-brand-500 hover:bg-brand-400 text-white shadow-sm transition" data-target="jurnal">
+                        <i class="fa-solid fa-pen-to-square mr-1"></i> Jurnal Praktikum
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-brand-100 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-800 pb-3 px-2">
+            <button onclick="switchTab('home')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-brand-600">Beranda</button>
+            <button onclick="switchTab('modul1')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-brand-600">Modul 1: Litter</button>
+            <button onclick="switchTab('modul2')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white hover:bg-brand-600">Modul 2: Fermentasi</button>
+            <button onclick="switchTab('jurnal')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-brand-100 font-bold hover:bg-brand-600">Jurnal Praktikum</button>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- ================= HOME TAB ================= -->
+        <div id="home" class="tab-content active fade-in">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+                <div class="bg-brand-50 p-8 md:p-12 text-center md:text-left flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1">
+                        <span class="inline-block py-1 px-3 rounded-full bg-brand-100 text-brand-700 text-sm font-semibold mb-4">Kelas XI Agribisnis Ternak Unggas</span>
+                        <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Selamat Datang di Virtual Lab Manajemen Limbah Peternakan</h1>
+                        <p class="text-slate-600 leading-relaxed mb-6">
+                            Pelajari secara mendalam tentang manajemen litter (alas kandang), bahaya gas amonia, hingga teknologi pengolahan limbah peternakan menjadi pupuk kompos dan media budidaya Maggot BSF.
+                        </p>
+                        <button onclick="switchTab('modul1')" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition transform hover:-translate-y-1">
+                            Mulai Belajar Sekarang <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                    <div class="flex-1 w-full relative">
+                        <div class="aspect-video bg-slate-200 rounded-xl overflow-hidden shadow-inner flex items-center justify-center relative">
+                            <!-- URL Gambar dari User (Catatan: jika link google share tidak merender langsung, browser akan menggunakan placeholder onerror) -->
+                            <img src="https://share.google/9xrzpoAYsAaNfbv1B" onerror="this.src='https://placehold.co/600x400/16a34a/ffffff?text=Ilustrasi+Kandang+Closed+House'" alt="Kandang" class="w-full h-full object-cover absolute opacity-80">
+                            <div class="z-10 bg-white/90 p-4 rounded-lg shadow-lg text-center backdrop-blur-sm">
+                                <i class="fa-solid fa-drone text-3xl text-brand-600 mb-2"></i>
+                                <p class="font-semibold text-sm">Simulasi Kandang Industri</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer" onclick="switchTab('modul1')">
+                    <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-wind"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Modul 1: Penanganan Kotoran & Litter</h3>
+                    <p class="text-slate-500 text-sm mb-4">Dampak gas amonia pada saluran pernapasan ayam (trachea) dan teknik pengerukan litter basah (caking).</p>
+                    <span class="text-brand-600 text-sm font-semibold">Pelajari Materi &rarr;</span>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer" onclick="switchTab('modul2')">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-flask"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Modul 2: Fermentasi & Maggot BSF</h3>
+                    <p class="text-slate-500 text-sm mb-4">Teknologi probiotik EM4 untuk dekomposisi bau dan pemanfaatan kotoran sebagai media maggot Black Soldier Fly.</p>
+                    <span class="text-brand-600 text-sm font-semibold">Pelajari Materi &rarr;</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= MODUL 1 TAB ================= -->
+        <div id="modul1" class="tab-content fade-in">
+            <div class="flex items-center gap-3 mb-6">
+                <button onclick="switchTab('home')" class="text-slate-400 hover:text-brand-600"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 class="text-2xl font-bold text-slate-800">Modul 1: Manajemen Litter & Bahaya Amonia</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-brand-700 mb-4 border-b pb-2"><i class="fa-solid fa-book-open mr-2"></i> Briefing Teori</h3>
+                        <div class="prose max-w-none text-slate-600">
+                            <h4 class="font-bold text-slate-800 text-lg mb-2">1. Bahaya Gas Amonia (NH₃)</h4>
+                            <p class="mb-4">
+                                Amonia adalah gas beracun yang dihasilkan dari penguraian asam urat dalam feses ayam oleh bakteri <em>ureolitik</em>. Proses ini sangat cepat terjadi jika <strong>litter (alas kandang) dalam kondisi basah dan suhu hangat</strong>.
+                            </p>
+                            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4 rounded-r-lg">
+                                <p class="text-sm text-red-800 font-medium">
+                                    <strong>Dampak Klinis:</strong> Gas amonia yang terhirup ayam akan merusak silia (rambut getar) pada dinding <em>trachea</em> (tenggorokan). Silia yang rusak tidak bisa menyaring debu dan bakteri, menyebabkan ayam sangat rentan terkena penyakit pernapasan kompleks (CRD / ngorok).
+                                </p>
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-lg mb-2 mt-6">2. Fenomena Caking (Litter Menggumpal)</h4>
+                            <p class="mb-2"><em>Caking</em> adalah kondisi di mana kotoran ayam dan sekam menyatu, basah, dan mengeras seperti kerak. Penyebab utama <em>caking</em>:</p>
+                            <ul class="list-disc pl-5 mb-4 space-y-1">
+                                <li>Kebocoran pada instalasi <em>nipple drinker</em> (tempat minum).</li>
+                                <li>Kepadatan kandang yang terlalu tinggi (overcrowding).</li>
+                                <li>Ventilasi (kipas/exhaust) tidak memadai sehingga kelembapan udara tinggi.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-brand-700 mb-4 border-b pb-2"><i class="fa-solid fa-list-check mr-2"></i> Simulasi Praktikum: SOP Pengerukan Litter</h3>
+                        <p class="text-sm text-slate-500 mb-4">Lakukan simulasi mental persiapan praktikum. Klik setiap tahapan secara berurutan.</p>
+                        
+                        <div class="space-y-3" id="sop-checklist">
+                            <!-- Items generated by JS -->
+                        </div>
+                        
+                        <div id="sop-success-msg" class="hidden mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                            <strong class="font-bold">Luar Biasa!</strong>
+                            <span class="block sm:inline"> Anda telah menyelesaikan simulasi SOP pengerukan litter. Anda siap ke kandang!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-slate-800 text-white p-6 rounded-xl shadow-md">
+                        <h4 class="font-bold text-lg mb-3 border-b border-slate-600 pb-2"><i class="fa-solid fa-triangle-exclamation text-yellow-400 mr-2"></i> Standar Amonia</h4>
+                        <div class="flex items-end gap-2 mb-2">
+                            <span class="text-4xl font-black text-green-400">< 20</span>
+                            <span class="text-lg text-slate-300 mb-1">ppm</span>
+                        </div>
+                        <p class="text-sm text-slate-300">Ambang batas maksimal gas amonia di dalam kandang unggas agar performa tetap optimal.</p>
+                    </div>
+                    <div class="bg-brand-50 p-6 rounded-xl border border-brand-200 shadow-sm">
+                        <h4 class="font-bold text-brand-800 text-lg mb-3">Indikator Sederhana</h4>
+                        <p class="text-sm text-slate-600 mb-3">Jika saat masuk kandang mata Anda terasa perih dan bau menyengat hingga membuat sesak, bisa dipastikan kadar amonia sudah di atas 25 ppm.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 flex justify-end">
+                <button onclick="switchTab('modul2')" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition">
+                    Lanjut ke Modul 2 <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= MODUL 2 TAB ================= -->
+        <div id="modul2" class="tab-content fade-in">
+             <div class="flex items-center gap-3 mb-6">
+                <button onclick="switchTab('modul1')" class="text-slate-400 hover:text-brand-600"><i class="fa-solid fa-arrow-left"></i></button>
+                <h2 class="text-2xl font-bold text-slate-800">Modul 2: Fermentasi Limbah & Maggot BSF</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="text-xl font-bold text-brand-700 mb-4 border-b pb-2"><i class="fa-solid fa-recycle mr-2"></i> Teknologi Pengolahan Limbah</h3>
+                        <div class="prose max-w-none text-slate-600 text-sm md:text-base">
+                            <p class="mb-4">
+                                Litter basah hasil pengerukan tidak boleh langsung dibuang ke lingkungan. Solusinya adalah <strong>Dekomposisi Anaerob</strong> menggunakan probiotik EM4.
+                            </p>
+                            <h4 class="font-bold text-slate-800 mb-2">Cara Kerja Fermentasi:</h4>
+                            <p class="mb-4">
+                                Bakteri baik memecah bahan organik, menekan patogen, dan mengubah amonia menjadi senyawa tidak berbau. Proses ditandai dengan perubahan aroma litter menjadi asam-manis.
+                            </p>
+                            <h4 class="font-bold text-slate-800 mb-2">Hilirisasi: Media Maggot BSF</h4>
+                            <div class="flex gap-4 items-start bg-amber-50 p-4 rounded-lg border border-amber-200">
+                                <i class="fa-solid fa-bug text-3xl text-amber-600 mt-1"></i>
+                                <div>
+                                    <p class="mb-2">Kotoran ayam yang sudah difermentasi (tidak bau) merupakan pakan ideal untuk larva lalat tentara hitam <strong>(Black Soldier Fly / BSF)</strong>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-md border-t-4 border-t-brand-500 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-3 opacity-10">
+                        <i class="fa-solid fa-calculator text-8xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2"><i class="fa-solid fa-bolt text-yellow-500 mr-2"></i> Ice Breaking: Takar Probiotik</h3>
+                    <p class="text-sm text-slate-500 mb-6">Mari kita uji kecepatan menghitung dosis Anda di lapangan!</p>
+
+                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200 mb-6">
+                        <p class="font-semibold text-slate-700 mb-1">Soal Kasus:</p>
+                        <p class="text-slate-600 text-sm">Dosis probiotik EM4 adalah <strong>10 ml per 1 liter air</strong>. Molase juga <strong>10 ml per 1 liter air</strong>.</p>
+                        <p class="mt-3 text-lg font-bold text-brand-700">Buat larutan sebanyak <span id="calc-volume" class="bg-brand-100 px-2 rounded">5</span> Liter Air.</p>
+                    </div>
+
+                    <form id="calculator-form" class="space-y-4 relative z-10" onsubmit="event.preventDefault(); checkCalculation();">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Berapa ml EM4?</label>
+                            <div class="flex items-center">
+                                <input type="number" id="input-em4" class="w-full md:w-1/2 p-2 border border-slate-300 rounded-l-md focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition" required>
+                                <span class="bg-slate-200 px-4 py-2 border border-l-0 border-slate-300 rounded-r-md text-slate-600 font-medium">ml</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">Berapa ml Molase?</label>
+                            <div class="flex items-center">
+                                <input type="number" id="input-molase" class="w-full md:w-1/2 p-2 border border-slate-300 rounded-l-md focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition" required>
+                                <span class="bg-slate-200 px-4 py-2 border border-l-0 border-slate-300 rounded-r-md text-slate-600 font-medium">ml</span>
+                            </div>
+                        </div>
+                        <div class="pt-2 flex gap-3">
+                            <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white font-bold py-2 px-6 rounded-lg transition shadow flex-1 md:flex-none">Cek Jawaban</button>
+                            <button type="button" onclick="randomizeQuestion()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded-lg transition"><i class="fa-solid fa-rotate-right"></i> Acak</button>
+                        </div>
+                    </form>
+                    <div id="calc-alert" class="hidden mt-4 p-4 rounded-lg flex items-start gap-3">
+                        <i id="calc-alert-icon" class="fa-solid mt-1"></i>
+                        <div>
+                            <h4 id="calc-alert-title" class="font-bold"></h4>
+                            <p id="calc-alert-msg" class="text-sm mt-1"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 flex justify-end">
+                <button onclick="switchTab('jurnal')" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2 px-6 rounded-lg shadow transition">
+                    Lanjut ke Pengisian Jurnal <i class="fa-solid fa-pen-to-square ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- ================= JURNAL TAB ================= -->
+        <div id="jurnal" class="tab-content fade-in max-w-2xl mx-auto">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Jurnal Praktikum Digital</h2>
+                <p class="text-slate-500">Laporkan aktivitas praktikum penanganan kotoran Anda di sini.</p>
+                <div id="db-status" class="mt-2 text-xs font-semibold text-amber-600 bg-amber-50 inline-block px-3 py-1 rounded-full border border-amber-200">
+                    <i class="fa-solid fa-circle-notch fa-spin mr-1"></i> Mengambil data siswa dari Spreadsheet...
+                </div>
+            </div>
+
+            <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-lg">
+                <form id="jurnal-form" onsubmit="event.preventDefault(); submitJurnal();" class="space-y-5">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <!-- Data ini dinamis dari Spreadsheet -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Kelas</label>
+                            <select id="select-kelas" onchange="filterNama()" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none bg-slate-50" required>
+                                <option value="">-- Menunggu Data --</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
+                            <select id="select-nama" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none bg-slate-50 disabled:opacity-50" required disabled>
+                                <option value="">-- Pilih Kelas Dahulu --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Pekan Praktikum</label>
+                        <select class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" required>
+                            <option value="Pekan 11">Pekan 11 - Pengerukan Litter (Part 1)</option>
+                            <option value="Pekan 12">Pekan 12 - Fermentasi Kotoran (Part 2)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Deskripsi Aktivitas</label>
+                        <textarea rows="3" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none" required placeholder="Jelaskan secara singkat apa yang Anda lakukan hari ini di kandang..."></textarea>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-200">
+                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 px-4 rounded-lg shadow-md transition text-lg flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim Jurnal Praktikum
+                        </button>
+                    </div>
+                </form>
+
+                <div id="jurnal-success" class="hidden text-center py-10">
+                    <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">Jurnal Berhasil Terkirim!</h3>
+                    <p class="text-slate-600 mb-6">Data simulasi ini terhubung dengan nama Anda di database.</p>
+                    <button onclick="resetJurnal()" class="text-brand-600 font-semibold hover:underline">Isi jurnal lagi</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-6 text-center text-sm">
+        <p>&copy; 2026 Virtual Lab SMK Agribisnis Ternak.</p>
+    </footer>
+
+    <script>
+        // --- 1. KONFIGURASI DATABASE SPREADSHEET ---
+        // GANTI URL DI BAWAH INI DENGAN URL DEPLOYMENT APPS SCRIPT ANDA DARI LANGKAH 2
+        const SPREADSHEET_API_URL = "URL_APPS_SCRIPT_ANDA_DISINI"; 
+        
+        let masterDataSiswa = []; // Menyimpan data dari spreadsheet
+
+        // Fungsi menarik data JSON dari Google Apps Script
+        async function fetchDatabaseSiswa() {
+            if(SPREADSHEET_API_URL === "URL_APPS_SCRIPT_ANDA_DISINI") {
+                document.getElementById('db-status').innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Mohon masukkan URL Apps Script di dalam kode JS.';
+                document.getElementById('db-status').className = 'mt-2 text-xs font-semibold text-red-600 bg-red-50 inline-block px-3 py-1 rounded-full border border-red-200';
+                document.getElementById('select-kelas').innerHTML = '<option value="">-- Setup API Dibutuhkan --</option>';
+                return;
+            }
+
+            try {
+                const response = await fetch(SPREADSHEET_API_URL);
+                masterDataSiswa = await response.json();
+                
+                // Ambil daftar kelas yang unik menggunakan Set
+                const daftarKelas = [...new Set(masterDataSiswa.map(item => item.kelas))];
+                
+                // Masukkan daftar kelas ke dropdown
+                const selectKelas = document.getElementById('select-kelas');
+                selectKelas.innerHTML = '<option value="">-- Pilih Kelas Anda --</option>';
+                daftarKelas.forEach(kelas => {
+                    selectKelas.innerHTML += `<option value="${kelas}">${kelas}</option>`;
+                });
+
+                document.getElementById('db-status').innerHTML = '<i class="fa-solid fa-check-circle mr-1"></i> Terhubung ke Database Sekolah';
+                document.getElementById('db-status').className = 'mt-2 text-xs font-semibold text-green-600 bg-green-50 inline-block px-3 py-1 rounded-full border border-green-200';
+
+            } catch (error) {
+                console.error("Gagal memuat data dari Spreadsheet:", error);
+                document.getElementById('db-status').innerHTML = '<i class="fa-solid fa-circle-xmark mr-1"></i> Gagal terhubung database. Cek izin akses URL.';
+                document.getElementById('db-status').className = 'mt-2 text-xs font-semibold text-red-600 bg-red-50 inline-block px-3 py-1 rounded-full border border-red-200';
+            }
+        }
+
+        // Fungsi filter nama berdasarkan kelas yang dipilih
+        function filterNama() {
+            const kelasTerpilih = document.getElementById('select-kelas').value;
+            const selectNama = document.getElementById('select-nama');
+            
+            if (!kelasTerpilih) {
+                selectNama.innerHTML = '<option value="">-- Pilih Kelas Dahulu --</option>';
+                selectNama.disabled = true;
+                return;
+            }
+
+            // Filter data master berdasarkan kelas terpilih
+            const siswaTerfilter = masterDataSiswa.filter(item => item.kelas === kelasTerpilih);
+            
+            selectNama.disabled = false;
+            selectNama.innerHTML = '<option value="">-- Pilih Nama Anda --</option>';
+            
+            // Masukkan nama ke dropdown
+            siswaTerfilter.forEach(siswa => {
+                selectNama.innerHTML += `<option value="${siswa.nama}">${siswa.nama}</option>`;
+            });
+        }
+
+
+        // --- UI Navigation Logic ---
+        const tabs = ['home', 'modul1', 'modul2', 'jurnal'];
+        
+        function switchTab(tabId) {
+            tabs.forEach(id => {
+                document.getElementById(id).classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if(btn.dataset.target === tabId) {
+                    if(tabId !== 'jurnal') btn.classList.add('bg-brand-600', 'text-white');
+                } else {
+                    if(btn.dataset.target !== 'jurnal') {
+                        btn.classList.remove('bg-brand-600');
+                        btn.classList.add('text-brand-100');
+                    }
+                }
+            });
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // --- Modul 1: Interactive SOP Checklist Logic ---
+        const sopData = [
+            { id: 1, text: "Gunakan APD lengkap: Masker dan Sarung Tangan." },
+            { id: 2, text: "Identifikasi area litter basah/menggumpal (caking)." },
+            { id: 3, text: "Gunakan sekop, keruk litter basah perlahan (hindari debu beterbangan)." },
+            { id: 4, text: "Kumpulkan kotoran hasil kerukan ke dalam karung/wadah." },
+            { id: 5, text: "Taburkan sekam kering baru pada area yang baru dikeruk." }
+        ];
+
+        let completedSOP = 0;
+
+        function renderSOP() {
+            const container = document.getElementById('sop-checklist');
+            container.innerHTML = '';
+            
+            sopData.forEach((item, index) => {
+                const isEnabled = index === 0 || document.getElementById(`sop-${index-1}`).checked;
+                const html = `
+                    <label class="flex items-start gap-3 p-3 rounded-lg border ${isEnabled ? 'bg-white border-brand-200 cursor-pointer hover:bg-brand-50' : 'bg-slate-100 border-slate-200 opacity-60 cursor-not-allowed'} transition" id="label-sop-${index}">
+                        <input type="checkbox" id="sop-${index}" class="mt-1 w-5 h-5 text-brand-600 rounded focus:ring-brand-500" 
+                            ${!isEnabled ? 'disabled' : ''} 
+                            onchange="checkSOP(${index})">
+                        <span class="text-slate-700 text-sm sm:text-base select-none font-medium" id="text-sop-${index}">${item.text}</span>
+                    </label>
+                `;
+                container.innerHTML += html;
+            });
+        }
+
+        function checkSOP(index) {
+            const checkbox = document.getElementById(`sop-${index}`);
+            const text = document.getElementById(`text-sop-${index}`);
+            
+            if (checkbox.checked) {
+                text.classList.add('line-through', 'text-slate-400');
+                completedSOP++;
+                if (index < sopData.length - 1) {
+                    renderSOP(); 
+                    restoreSOPState();
+                }
+            } else {
+                for(let i = index; i < sopData.length; i++) { completedSOP--; }
+                renderSOP();
+                restoreSOPState(index - 1);
+            }
+
+            if (isAllChecked()) {
+                document.getElementById('sop-success-msg').classList.remove('hidden');
+            } else {
+                document.getElementById('sop-success-msg').classList.add('hidden');
+            }
+        }
+
+        function restoreSOPState(maxIndex = sopData.length) {
+            completedSOP = 0;
+            for(let i = 0; i <= maxIndex; i++) {
+                const cb = document.getElementById(`sop-${i}`);
+                const txt = document.getElementById(`text-sop-${i}`);
+                if(cb && !cb.disabled && i < maxIndex) {
+                    cb.checked = true;
+                    txt.classList.add('line-through', 'text-slate-400');
+                    completedSOP++;
+                }
+            }
+        }
+        
+        function isAllChecked() {
+            let all = true;
+            for(let i = 0; i < sopData.length; i++) {
+                const cb = document.getElementById(`sop-${i}`);
+                if(!cb || !cb.checked) all = false;
+            }
+            return all;
+        }
+
+        // --- Modul 2: Calculator Logic ---
+        let currentVolume = 5;
+        const DOSIS_PER_LITER = 10;
+
+        function randomizeQuestion() {
+            currentVolume = Math.floor(Math.random() * 14) + 2;
+            document.getElementById('calc-volume').innerText = currentVolume;
+            document.getElementById('input-em4').value = '';
+            document.getElementById('input-molase').value = '';
+            document.getElementById('calc-alert').classList.add('hidden');
+        }
+
+        function checkCalculation() {
+            const inputEm4 = parseInt(document.getElementById('input-em4').value);
+            const inputMolase = parseInt(document.getElementById('input-molase').value);
+            const alertBox = document.getElementById('calc-alert');
+            const alertIcon = document.getElementById('calc-alert-icon');
+            const alertTitle = document.getElementById('calc-alert-title');
+            const alertMsg = document.getElementById('calc-alert-msg');
+            const correctDosis = currentVolume * DOSIS_PER_LITER;
+
+            alertBox.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-green-50', 'text-green-700');
+            alertIcon.className = 'fa-solid mt-1 text-xl ';
+
+            if (inputEm4 === correctDosis && inputMolase === correctDosis) {
+                alertBox.classList.add('bg-green-50', 'text-green-700');
+                alertIcon.classList.add('fa-check-circle');
+                alertTitle.innerText = "Jawaban Tepat!";
+                alertMsg.innerText = `Untuk ${currentVolume} Liter air, dibutuhkan ${correctDosis}ml EM4 dan ${correctDosis}ml Molase.`;
+            } else {
+                alertBox.classList.add('bg-red-50', 'text-red-700');
+                alertIcon.classList.add('fa-triangle-exclamation');
+                alertTitle.innerText = "Kalkulasi Kurang Tepat";
+                alertMsg.innerText = `Rumus: (Volume Air x Dosis per Liter). Coba hitung ulang.`;
+            }
+        }
+
+        // --- Jurnal Logic ---
+        function submitJurnal() {
+            document.getElementById('jurnal-form').classList.add('hidden');
+            document.getElementById('jurnal-success').classList.remove('hidden');
+        }
+
+        function resetJurnal() {
+            document.getElementById('jurnal-form').reset();
+            document.getElementById('select-nama').innerHTML = '<option value="">-- Pilih Kelas Dahulu --</option>';
+            document.getElementById('select-nama').disabled = true;
+            document.getElementById('jurnal-form').classList.remove('hidden');
+            document.getElementById('jurnal-success').classList.add('hidden');
+        }
+
+        // Initialization
+        window.onload = () => {
+            renderSOP();
+            fetchDatabaseSiswa(); // Jalankan fetching data saat web dimuat
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if(btn.dataset.target !== 'home' && btn.dataset.target !== 'jurnal') {
+                     btn.classList.add('text-brand-100');
+                }
+            });
+        };
+
+    </script>
+</body>
+</html>
